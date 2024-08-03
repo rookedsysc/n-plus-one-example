@@ -2,14 +2,14 @@ package org.rookedsysc.nplusoneexample.domain.entity
 
 import jakarta.persistence.*
 
-@Entity(name = "post")
-data class Post (
+@Entity(name = "comment")
+data class Comment (
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    val title: String,
     val content: String,
     val author: String,
-    @field:OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    val comments: List<Comment> = listOf()
+    @field:ManyToOne(fetch = FetchType.LAZY)
+    @field:JoinColumn(name = "post_id", nullable = false)
+    val post: Post
 )
