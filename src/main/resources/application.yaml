@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      format_sql: true
+      hibernate:
+        default_schema: example
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database: postgresql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: df159357
