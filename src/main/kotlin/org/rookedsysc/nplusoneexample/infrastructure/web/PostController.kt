@@ -17,8 +17,9 @@ class PostController(
 ) {
     @PostMapping
     fun save(@RequestBody request: PostRequest): ResponseEntity<PostResponse> {
-        val post: PostResponse= postService.save(request)
-        return ResponseEntity(
+        val response: PostResponse= postService.save(request)
+        return ResponseEntity<PostResponse>(
+            response,
             HttpStatus.CREATED
         )
     }
