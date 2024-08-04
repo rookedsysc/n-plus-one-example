@@ -31,7 +31,7 @@ class PostService(
     }
 
     fun findAll(): List<PostResponse> {
-        return postRepository.findAllPostFetchJoinComments().map{
+        return postRepository.findAll().map{
             PostConverter.toResponseUseRepository(it)
         }
     }
