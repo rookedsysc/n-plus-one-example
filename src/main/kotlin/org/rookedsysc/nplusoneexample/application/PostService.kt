@@ -10,14 +10,16 @@ import org.rookedsysc.nplusoneexample.infrastructure.repository.PostRepository
 import org.rookedsysc.nplusoneexample.infrastructure.web.request.PostRequest
 import org.rookedsysc.nplusoneexample.infrastructure.web.response.CommentResponse
 import org.rookedsysc.nplusoneexample.infrastructure.web.response.PostResponse
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
 @Service
 @Transactional
 class PostService(
     private val postRepository: PostRepository,
-    private val commentRepository: CommentRepository
 ) {
+    private val logger = LoggerFactory.getLogger(javaClass)
+
     fun save(request: PostRequest): PostResponse {
         val post = PostConverter.toEntity(request)
         val response: PostResponse = PostConverter.toResponse(postRepository.save(post))
@@ -26,11 +28,16 @@ class PostService(
 
     fun findById(id: Long): PostResponse {
         val post: Post = postRepository.findById(id).orElseThrow { IllegalArgumentException("Post not found: $id") }
-        val comments: List<CommentResponse> = commentRepository.findByPostId(post.id!!).map { CommentConverter.toResponse(it) }
+        val comments: List<CommentResponse> = post.comments.map { CommentConverter.toResponse(it) }
         return PostConverter.toResponse(post, comments)
     }
 
-    fun findAll(): List<Post> {
-        return postRepository.findAll()
+    fun findAll(): List<PostResponse> {
+        return postRepository.findAll().map{
+            logger.info("Comment 조회 전")
+            val result = PostConverter.toResponseUseRepository(it)
+            logger.info("Comment 조회 후")
+            result
+        }
     }
 }
