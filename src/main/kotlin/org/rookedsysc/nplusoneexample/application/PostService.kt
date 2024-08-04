@@ -3,9 +3,7 @@ package org.rookedsysc.nplusoneexample.application
 import jakarta.transaction.Transactional
 import org.rookedsysc.nplusoneexample.application.converter.CommentConverter
 import org.rookedsysc.nplusoneexample.application.converter.PostConverter
-import org.rookedsysc.nplusoneexample.domain.entity.Comment
 import org.rookedsysc.nplusoneexample.domain.entity.Post
-import org.rookedsysc.nplusoneexample.infrastructure.repository.CommentRepository
 import org.rookedsysc.nplusoneexample.infrastructure.repository.PostRepository
 import org.rookedsysc.nplusoneexample.infrastructure.web.request.PostRequest
 import org.rookedsysc.nplusoneexample.infrastructure.web.response.CommentResponse
@@ -33,11 +31,8 @@ class PostService(
     }
 
     fun findAll(): List<PostResponse> {
-        return postRepository.findAll().map{
-            logger.info("Comment 조회 전")
-            val result = PostConverter.toResponseUseRepository(it)
-            logger.info("Comment 조회 후")
-            result
+        return postRepository.findAllPostFetchJoinComments().map{
+            PostConverter.toResponseUseRepository(it)
         }
     }
 }
