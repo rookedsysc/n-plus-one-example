@@ -11,7 +11,6 @@ data class Post (
     val title: String,
     val content: String,
     val author: String,
-    @BatchSize(size = 1000)
     @field:OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     val comments: List<Comment> = listOf()
 )
