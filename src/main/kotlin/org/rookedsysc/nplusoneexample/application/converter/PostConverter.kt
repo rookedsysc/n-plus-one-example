@@ -34,5 +34,15 @@ class PostConverter {
                 comments = mutableListOf()
             )
         }
+
+        fun toResponseUseRepository(post: Post): PostResponse {
+            return PostResponse(
+                id = post.id!!,
+                title = post.title,
+                content = post.content,
+                author = post.author,
+                comments = post.comments.map { CommentConverter.toResponse(it) }
+            )
+        }
     }
 }
