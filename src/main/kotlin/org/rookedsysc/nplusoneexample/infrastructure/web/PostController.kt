@@ -1,6 +1,8 @@
 package org.rookedsysc.nplusoneexample.infrastructure.web
 
 import org.rookedsysc.nplusoneexample.application.PostService
+import org.rookedsysc.nplusoneexample.application.converter.PostConverter
+import org.rookedsysc.nplusoneexample.domain.entity.Post
 import org.rookedsysc.nplusoneexample.infrastructure.web.request.PostRequest
 import org.rookedsysc.nplusoneexample.infrastructure.web.response.PostResponse
 import org.springframework.http.HttpStatus
@@ -18,6 +20,15 @@ class PostController(
         return ResponseEntity<PostResponse>(
             response,
             HttpStatus.CREATED
+        )
+    }
+
+    @GetMapping
+    fun findAll() : ResponseEntity<List<PostResponse>> {
+        val response: List<PostResponse> = postService.findAll().map{ PostConverter.toResponse(it) }
+        return ResponseEntity<List<PostResponse>>(
+            response,
+            HttpStatus.OK
         )
     }
 
