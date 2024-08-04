@@ -10,6 +10,6 @@ data class Post (
     val title: String,
     val content: String,
     val author: String,
-    @field:OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    @field:OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
     val comments: List<Comment> = listOf()
 )
