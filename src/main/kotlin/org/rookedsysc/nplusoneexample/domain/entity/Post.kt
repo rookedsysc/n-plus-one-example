@@ -1,6 +1,7 @@
 package org.rookedsysc.nplusoneexample.domain.entity
 
 import jakarta.persistence.*
+import org.hibernate.annotations.BatchSize
 
 @Entity(name = "post")
 data class Post (
@@ -10,6 +11,7 @@ data class Post (
     val title: String,
     val content: String,
     val author: String,
+    @BatchSize(size = 1000)
     @field:OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     val comments: List<Comment> = listOf()
 )
