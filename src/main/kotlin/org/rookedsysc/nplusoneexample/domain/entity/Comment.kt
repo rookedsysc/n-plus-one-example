@@ -11,5 +11,5 @@ data class Comment (
     val author: String,
     @field:ManyToOne(fetch = FetchType.LAZY)
     @field:JoinColumn(name = "post_id", nullable = false)
-    val post: Post
+    val post: Post,
 )

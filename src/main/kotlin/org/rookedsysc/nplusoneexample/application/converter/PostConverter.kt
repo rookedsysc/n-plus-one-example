@@ -2,6 +2,7 @@ package org.rookedsysc.nplusoneexample.application.converter
 
 import org.rookedsysc.nplusoneexample.domain.entity.Post
 import org.rookedsysc.nplusoneexample.infrastructure.web.request.PostRequest
+import org.rookedsysc.nplusoneexample.infrastructure.web.response.CommentResponse
 import org.rookedsysc.nplusoneexample.infrastructure.web.response.PostResponse
 
 class PostConverter {
@@ -14,12 +15,23 @@ class PostConverter {
             )
         }
 
+        fun toResponse(entity: Post, comments: List<CommentResponse>): PostResponse {
+            return PostResponse(
+                id = entity.id!!,
+                title = entity.title,
+                content = entity.content,
+                author = entity.author,
+                comments = comments
+            )
+        }
+
         fun toResponse(entity: Post): PostResponse {
             return PostResponse(
                 id = entity.id!!,
                 title = entity.title,
                 content = entity.content,
-                author = entity.author
+                author = entity.author,
+                comments = mutableListOf()
             )
         }
     }
