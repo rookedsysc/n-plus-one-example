@@ -25,7 +25,7 @@ class PostController(
 
     @GetMapping
     fun findAll() : ResponseEntity<List<PostResponse>> {
-        val response: List<PostResponse> = postService.findAll().map{ PostConverter.toResponse(it) }
+        val response: List<PostResponse> = postService.findAll().map{ PostConverter.toResponseUseRepository(it) }
         return ResponseEntity<List<PostResponse>>(
             response,
             HttpStatus.OK
