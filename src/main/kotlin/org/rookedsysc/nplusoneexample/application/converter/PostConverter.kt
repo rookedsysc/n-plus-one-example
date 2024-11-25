@@ -1,17 +1,19 @@
 package org.rookedsysc.nplusoneexample.application.converter
 
 import org.rookedsysc.nplusoneexample.domain.entity.Post
+import org.rookedsysc.nplusoneexample.domain.entity.Member
 import org.rookedsysc.nplusoneexample.infrastructure.web.request.PostRequest
 import org.rookedsysc.nplusoneexample.infrastructure.web.response.CommentResponse
 import org.rookedsysc.nplusoneexample.infrastructure.web.response.PostResponse
 
 class PostConverter {
     companion object {
-        fun toEntity(request: PostRequest): Post {
+        fun toEntity(request: PostRequest, member: Member): Post {
             return Post(
                 title = request.title,
                 content = request.content,
-                author = request.author
+                author = request.author,
+                member = member
             )
         }
 
