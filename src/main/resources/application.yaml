@@ -2,18 +2,14 @@ server:
   port: 8080
 spring:
   jpa:
-    show-sql: true
     properties:
-      format_sql: true
-      hibernate:
-        default_schema: example
+      dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    database: postgresql
   datasource:
-    url: jdbc:postgresql://localhost:5432/
-    driver-class-name: org.postgresql.Driver
-    username: postgres
+    url: jdbc:mysql://192.168.1.24:3306/test?userSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
     password: df159357
